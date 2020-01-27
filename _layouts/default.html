@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+{% include iklan.html %}
+	{% include facebook.html %}
+	<title>{% if page.title %}{{ page.title }} - {% endif %}MZAINI30</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/highlight/syntax.css">
+	<style type="text/css">
+		* {
+			word-wrap: break-word;
+		}
+
+		img {
+			max-width: 100%;
+			display: block;
+			margin: auto;
+		}
+
+		.logo-konten {
+			margin: 15px;
+			max-width: 30%;
+		}
+
+		body {
+			padding-top: 70px;
+		}
+
+		.navbar-fixed-bottom .btn {
+			width: 100%;
+		}
+
+		.navbar-fixed-bottom .table {
+			margin-bottom: 0;
+		}
+
+		.navbar-fixed-bottom .table,
+		.navbar-fixed-bottom td {
+			border: none !important;
+		}
+
+		.hapus,
+		.tombol {
+			cursor: pointer;
+    user-select: none;
+		}
+
+		.list-postingan,
+		.list-postingan:hover,
+		.list-postingan:active,
+		.list-postingan:focus,
+		.list-postingan:visited {
+			color: #000;
+			text-decoration: none;
+		}
+
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.row [class*="col-"] {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.sembunyi {
+			display: none !important;
+		}
+	</style>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header"><a href="/" class="navbar-brand">{{ site.title }}</a></div>
+		</div>
+	</div>
+	<div class="container">
+		{{ content }}
+	</div>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script>
+		{% if page.halaman == "index" %}
+			$.expr[':'].contains = $.expr.createPseudo(function(arg){
+				return function(elem){
+					return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0
+				}
+			})
+
+			$('.cari').on('keyup', function(){
+				if ($('.cari').val() != ''){
+					$('.item-cari').addClass('sembunyi')
+					$('.item-cari').each(function(){
+						if ($(this).is(":contains(" + $('.cari').val() + ")")) {
+							$(this).removeClass('sembunyi')
+						}
+					})
+				} else {
+					$('.item-cari').removeClass('sembunyi')
+				}
+			})
+
+			$('.hapus').each(function(){
+				$(this).click(function(){
+					$(this).parent().find('.form-control').val('')
+					$('.item-cari').removeClass('sembunyi')
+				})
+			})
+		{% endif %}
+
+		$('.tombol').each(function(){
+			$(this).click(function(x){
+				location.href = $(this).attr('data-link')
+			})
+		})
+
+$(".isi-postingan img").addClass("thumbnail")
+	</script>
+</body>
+</html>

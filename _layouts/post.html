@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+<style type="text/css">
+	body {
+		padding-top: 50px;
+	}
+
+	.container {
+		max-width: 800px;
+	}
+</style>
+
+
+
+	<h3>{{ page.title }}</h3>
+	<img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=200&url={{ site.url }}/logo/{{ page.bahasa }}.png" class="pull-right logo-konten" alt="">
+
+<div class="isi-postingan">
+	{{ content }}
+</div>
+
+<p><code>Jangan lupa follow blog ini <a href="https://t.me/{{ site.telegram_channel }}">di Telegram</a> juga ya...</code></p>
+<p><em>Untuk penawaran sponsorship dan kerja sama, silahkan hubungi <a href="mailto:{{ site.email }}">{{ site.email }}</a></em></p>
+<p><strong>Baca juga yuk:</strong></p>
+
+	{% assign random = site.time | date: "%s" %}
+	{% assign acak_judul = page.title.size %}
+	{% assign angka_postingan = page.date | date: "%s" | plus: random | plus: acak_judul %}
+	{% assign postingan_selanjutnya_1 = angka_postingan | modulo: site.posts.size %}
+	{% assign postingan_selanjutnya_2 = angka_postingan | plus: 1 | modulo: site.posts.size %}
+	{% assign postingan_selanjutnya_3 = angka_postingan | plus: 2 | modulo: site.posts.size %}
+
+	<table class="table table-bordered">
+		<tr data-link='{{ site.posts[postingan_selanjutnya_1].url | replace: '/', '' }}' class="tombol">
+			<td><img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=70&url={{ site.url }}/logo/{{ site.posts[postingan_selanjutnya_1].bahasa }}.png" class="logo" alt=""></td>
+			<td>{{ site.posts[postingan_selanjutnya_1].title }}</td>
+		</tr>
+		<tr data-link='{{ site.posts[postingan_selanjutnya_2].url | replace: '/', '' }}' class="tombol">
+			<td><img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=70&url={{ site.url }}/logo/{{ site.posts[postingan_selanjutnya_2].bahasa }}.png" class="logo" alt=""></td>
+			<td>{{ site.posts[postingan_selanjutnya_2].title }}</td>
+		</tr>
+		<tr data-link='{{ site.posts[postingan_selanjutnya_3].url | replace: '/', '' }}' class="tombol">
+			<td><img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=70&url={{ site.url }}/logo/{{ site.posts[postingan_selanjutnya_3].bahasa }}.png" class="logo" alt=""></td>
+			<td>{{ site.posts[postingan_selanjutnya_3].title }}</td>
+		</tr>
+	</table>
+
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = '{{ site.url }}{{ page.url }}';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = '{{ page.url }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://{{ site.disqus }}.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
